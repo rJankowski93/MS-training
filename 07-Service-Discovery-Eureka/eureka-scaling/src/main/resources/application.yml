@@ -1,0 +1,40 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${other.eureka.host}:${other.eureka.port}/eureka
+
+---
+spring:
+  profiles: eureka-1
+  application:
+    name: eureka-1
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: eureka1.example.com
+
+other:
+  eureka:
+    host: localhost
+    port: 8762
+
+---
+spring:
+  profiles: eureka-2
+  application:
+    name: eureka-2
+
+server:
+  port: 8762
+
+eureka:
+  instance:
+    hostname: eureka2.example.com
+
+other:
+  eureka:
+    host: localhost
+    port: 8761
