@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "CouponsApiClient", url = "http://localhost:8081/customers")
+@FeignClient(value = "Customers")
 public interface CouponsApiClient {
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
     ResponseEntity<Customer> getCustomerById(@PathVariable Long id);
 }

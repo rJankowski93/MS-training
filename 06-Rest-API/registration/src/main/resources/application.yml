@@ -1,2 +1,10 @@
 server:
-  port: 8082
+  port: 0
+
+eureka:
+  instance:
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: Registration

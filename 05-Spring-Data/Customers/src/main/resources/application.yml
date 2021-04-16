@@ -1,8 +1,14 @@
 spring.h2.console.enabled: true
 spring.datasource.url: jdbc:h2:mem:customers
 spring:
+  application:
+    name: Customers
   jpa:
     hibernate:
       ddl-auto: none
 server:
-  port: 8081
+  port: 0
+
+eureka:
+  instance:
+    prefer-ip-address: true
