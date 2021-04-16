@@ -1,14 +1,13 @@
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (1, 'Piotr', 'Nowak');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (2, 'Jan', 'Kowalski');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (3, 'Grzegorz', 'Kwiatkowski');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (4, 'Piotr', 'Nowak');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (5, 'Piotr', 'Zielony');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (6, 'Grzegorz', 'Rejent');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (7, 'Jan', 'Nowak');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (8, 'Piotr', 'Kwiatkowski');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (9, 'Grzegorz', 'Kowalski');
-insert into CUSTOMER(id, FIRST_NAME, LAST_NAME) values (10, 'Sebastian', 'Zielony');
-
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (1, 'Piotr', 'Nowak', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (2, 'Jan', 'Kowalski', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (3, 'Grzegorz', 'Kwiatkowski', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (4, 'Piotr', 'Nowak', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (5, 'Piotr', 'Zielony', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (6, 'Grzegorz', 'Rejent', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (7, 'Jan', 'Nowak', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (8, 'Piotr', 'Kwiatkowski', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (9, 'Grzegorz', 'Kowalski', TRUE);
+insert into CUSTOMER(id, FIRST_NAME, LAST_NAME, ACTIVE) values (10, 'Sebastian', 'Zielony', TRUE);
 
 insert into ADDRESS(id, CITY, STREET, CUSTOMER_ID) values (1, 'a', 'a', 1);
 insert into ADDRESS(id, CITY, STREET, CUSTOMER_ID) values (2, 'a', 'a', 1);
