@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController("/")
 @RequiredArgsConstructor
@@ -51,10 +52,21 @@ public class CustomerResource {
     }
 
     @GetMapping("customers/{id}/addresses/{idAdr}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable Long id, @PathVariable Long idAdr) {
+    public ResponseEntity<List> getCustomerAdresse(@PathVariable Long id, @PathVariable Long idAdr) {
         Optional<Customer> itemById = customerRepository.findById(id);
         if (itemById.isPresent()) {
-            return new ResponseEntity<>(itemById.get(), HttpStatus.OK);
+            return new ResponseEntity<List>(itemById.get().getAddresses().stream().filter(address -> address.getId() == idAdr).collect(Collectors.toList()), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
+    }
+
+    @GetMapping("customers/{id}/addresses")
+    public ResponseEntity<List> getCustomerAdresses(@PathVariable Long id) {
+        Optional<Customer> itemById = customerRepository.findById(id);
+        if (itemById.isPresent()) {
+            return new ResponseEntity<List>(itemById.get().getAddresses(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
