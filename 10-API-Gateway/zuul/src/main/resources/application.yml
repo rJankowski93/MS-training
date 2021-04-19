@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: zuul
+zuul:
+  routes:
+    registration:
+      path: /v1/registration/**
+      serviceId: Registration
+    customers:
+      path: /v1/coupons/**
+      serviceId: Coupons
+  prefix: /api
+
+server:
+  port: 8080
