@@ -1,0 +1,8 @@
+server:
+  port: 8989
+turbine:
+  app-config: Registration, Coupons
+  cluster-name-expression: "'default'"
+spring:
+  application:
+    name: turbine
