@@ -39,6 +39,12 @@ public class RegistrationResource {
     }
 
     @PostMapping("/active")
+        @HystrixCommand(commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "90"),
+            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "50000"),
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "20000")
+    })
     public ResponseEntity active(@RequestBody ActivationRequest activationRequest) {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
