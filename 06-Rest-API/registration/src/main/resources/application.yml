@@ -5,3 +5,9 @@ eureka:
 spring:
   application:
     name: Registration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
