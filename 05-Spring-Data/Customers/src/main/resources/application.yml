@@ -1,9 +1,0 @@
-spring.datasource.url: jdbc:h2:mem:customers
-spring:
-  application:
-    name: Customers
-  datasource:
-    password: pass
-eureka:
-  instance:
-    prefer-ip-address: true

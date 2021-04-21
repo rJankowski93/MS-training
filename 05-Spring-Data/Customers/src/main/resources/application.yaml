@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: Customers
+  datasource:
+    password: pass
+    url: jdbc:h2:mem:customers
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+
+server.port: 8081
