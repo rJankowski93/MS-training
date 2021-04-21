@@ -1,0 +1,8 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.103.34.222:8761/eureka
+  instance:
+    prefer-ip-address: true
+    ip-address: 10.103.34.222
+
