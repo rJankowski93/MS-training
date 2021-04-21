@@ -1,0 +1,38 @@
+version: '3'
+services:
+    eureka:
+        build: ../07-Service-Discovery-Eureka/eureka
+        ports:
+            - "8761:8761"
+    customers:
+        build: ../05-Spring-Data/Customers
+        ports:
+            - "8081:8081"
+        depends_on:
+            - eureka
+            - config-server
+    registrations:
+        build: ../06-Rest-API/registration
+        ports:
+            - "8082:8082"
+        depends_on:
+            - eureka
+            - config-server
+    zuul:
+        build: ../10-API-Gateway/zuul
+        ports:
+            - "8080:8080"
+        depends_on:
+            - eureka
+            - config-server
+    payment:
+        build: ../12-Testy-API/payment
+        ports:
+            - "8083:8083"
+        depends_on:
+            - eureka
+            - config-server
+    config-server:
+        build: ../08-Config-Server/config-server
+        ports:
+            - "8888:8888"
