@@ -3,6 +3,7 @@ package com.org.rjankowski.ms.registration;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -28,6 +29,7 @@ public class RegistrationResource {
 
     @PostMapping("/register")
     @CircuitBreaker(name = "Register", fallbackMethod = "fallbackRegister")
+    @RateLimiter(name = "Register")
     public ResponseEntity registration(@RequestBody RegistrationRequest registrationRequest) {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
