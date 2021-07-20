@@ -11,3 +11,36 @@ management:
     web:
       exposure:
         include: refresh, hystrix.stream
+
+
+#resilience4j.circuitbreaker:
+#  configs:
+#    default:
+#      registerHealthIndicator: true
+#      slidingWindowSize: 10
+#      minimumNumberOfCalls: 1
+#      permittedNumberOfCallsInHalfOpenState: 3
+#      automaticTransitionFromOpenToHalfOpenEnabled: true
+#      waitDurationInOpenState: 5s
+#      failureRateThreshold: 50
+#      eventConsumerBufferSize: 10
+#    shared:
+#      slidingWindowSize: 100
+#      permittedNumberOfCallsInHalfOpenState: 30
+#      waitDurationInOpenState: 1s
+#      failureRateThreshold: 50
+#      eventConsumerBufferSize: 10
+#      ignoreExceptions:
+#        - io.github.robwin.exception.BusinessException
+#  instances:
+#    backendA:
+#      baseConfig: default
+#    backendB:
+#      registerHealthIndicator: true
+#      slidingWindowSize: 10
+#      minimumNumberOfCalls: 10
+#      permittedNumberOfCallsInHalfOpenState: 3
+#      waitDurationInOpenState: 5s
+#      failureRateThreshold: 50
+#      eventConsumerBufferSize: 10
+#      recordFailurePredicate: io.github.robwin.exception.RecordFailurePredicate

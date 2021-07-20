@@ -2,6 +2,7 @@ package com.org.rjankowski.ms.registration;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -26,6 +27,7 @@ public class RegistrationResource {
     private Environment env;
 
     @PostMapping("/register")
+    @CircuitBreaker(name = "Register", fallbackMethod = "fallbackRegister")
     public ResponseEntity registration(@RequestBody RegistrationRequest registrationRequest) {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
@@ -80,6 +82,11 @@ public class RegistrationResource {
 
     public ResponseEntity fallbackClose(@RequestBody ClosingRequest closingRequest) {
         closingRequestLis.add(closingRequest);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    public ResponseEntity fallbackRegister(RegistrationRequest request, Throwable e) {
+        System.out.println("Fallback******");
         return new ResponseEntity(HttpStatus.OK);
     }
 }
