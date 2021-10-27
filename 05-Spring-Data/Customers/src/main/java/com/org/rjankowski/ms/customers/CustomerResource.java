@@ -45,14 +45,14 @@ public class CustomerResource {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/customers")
-    public ResponseEntity deleteCustomer(Customer customer) {
-        customerRepository.delete(customer);
+    @DeleteMapping("customers/{id}")
+    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+        customerRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("customers/{id}/addresses/{idAdr}")
-    public ResponseEntity<List> getCustomerAdresse(@PathVariable Long id, @PathVariable Long idAdr) {
+    public ResponseEntity<List> getCustomerAddress(@PathVariable Long id, @PathVariable Long idAdr) {
         Optional<Customer> itemById = customerRepository.findById(id);
         if (itemById.isPresent()) {
             return new ResponseEntity<List>(itemById.get().getAddresses().stream().filter(address -> address.getId() == idAdr).collect(Collectors.toList()), HttpStatus.OK);
@@ -63,7 +63,7 @@ public class CustomerResource {
     }
 
     @GetMapping("customers/{id}/addresses")
-    public ResponseEntity<List> getCustomerAdresses(@PathVariable Long id) {
+    public ResponseEntity<List> getCustomerAddresses(@PathVariable Long id) {
         Optional<Customer> itemById = customerRepository.findById(id);
         if (itemById.isPresent()) {
             return new ResponseEntity<List>(itemById.get().getAddresses(), HttpStatus.OK);
