@@ -35,10 +35,8 @@ public class CustomerResourceTestMODIFY {
 
     @Test
     public void removeCustomer() throws Exception {
-        Customer customer = new Customer(1L,"Piotr","Nowak");
-
         mockMvc
-                .perform(MockMvcRequestBuilders.delete("/customers").content(asJsonString(customer)))
+                .perform(MockMvcRequestBuilders.delete("/customers/1"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
