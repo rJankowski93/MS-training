@@ -15,23 +15,23 @@ public class RegistrationResource {
     private final RestTemplate restTemplate;
 
     @PostMapping("/register")
-    public ResponseEntity registration(@RequestBody RegistrationRequest registrationRequest){
+    public ResponseEntity registration(@RequestBody RegistrationRequest registrationRequest) {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://localhost:8081/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
-            if(customer.getFirstName().equals(registrationRequest.getFirstName()) && customer.getLastName().equals(registrationRequest.getLastName())){
+            if (customer.getFirstName().equals(registrationRequest.getFirstName()) && customer.getLastName().equals(registrationRequest.getLastName())) {
                 throw new RuntimeException();
             }
         }
-        Customer customer = new Customer(registrationRequest.getFirstName(),registrationRequest.getLastName(),false, registrationRequest.getAddresses());
+        Customer customer = new Customer(registrationRequest.getFirstName(), registrationRequest.getLastName(), false, registrationRequest.getAddresses());
         restTemplate.postForEntity("http://localhost:8081/customers", customer, ResponseEntity.class);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/active")
-    public ResponseEntity active(@RequestBody ActivationRequest activationRequest){
+    public ResponseEntity active(@RequestBody ActivationRequest activationRequest) {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://localhost:8081/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
-            if(customer.getFirstName().equals(activationRequest.getFirstName()) && customer.getLastName().equals(activationRequest.getLastName())){
+            if (customer.getFirstName().equals(activationRequest.getFirstName()) && customer.getLastName().equals(activationRequest.getLastName())) {
                 customer.setActive(true);
                 restTemplate.postForEntity("http://localhost:8081/customers", customer, ResponseEntity.class);
             }
@@ -40,11 +40,11 @@ public class RegistrationResource {
     }
 
     @PostMapping("/close")
-    public ResponseEntity close(@RequestBody ClosingRequest closingRequest){
+    public ResponseEntity close(@RequestBody ClosingRequest closingRequest) {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://localhost:8081/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
-            if(customer.getFirstName().equals(closingRequest.getFirstName()) && customer.getLastName().equals(closingRequest.getLastName())){
-                restTemplate.delete("http://localhost:8081/customers", customer);
+            if (customer.getFirstName().equals(closingRequest.getFirstName()) && customer.getLastName().equals(closingRequest.getLastName())) {
+                restTemplate.delete("http://localhost:8081/customers/" + customer.getId());
                 return new ResponseEntity(HttpStatus.OK);
             }
         }
