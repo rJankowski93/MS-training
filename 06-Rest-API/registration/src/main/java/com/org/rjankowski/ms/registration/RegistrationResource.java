@@ -17,9 +17,6 @@ import org.springframework.core.env.Environment;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 public class RegistrationResource {
