@@ -6,10 +6,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +29,10 @@ public class RegistrationResource {
     List<RegistrationRequest> registrationRequests = new ArrayList<>();
     List<ClosingRequest> closingRequests = new ArrayList<>();
 
+
+    @Autowired
+    private Environment env;
+
     @PostMapping("/register")
     @HystrixCommand(fallbackMethod = "fallbackRegistration")
     public ResponseEntity registration(@RequestBody RegistrationRequest registrationRequest) {
@@ -32,8 +42,8 @@ public class RegistrationResource {
                 throw new RuntimeException();
             }
         }
-        Customer customer = new Customer(registrationRequest.getFirstName(), registrationRequest.getLastName(), false, registrationRequest.getAddresses());
-        restTemplate.postForEntity("http://localhost:8081/customers", customer, ResponseEntity.class);
+        Customer customer = new Customer(registrationRequest.getFirstName(),registrationRequest.getLastName(),false, registrationRequest.getAddresses());
+        restTemplate.postForEntity("http://Customers/customers", customer, ResponseEntity.class);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -49,7 +59,7 @@ public class RegistrationResource {
         for (Customer customer : forEntity.getBody()) {
             if (customer.getFirstName().equals(activationRequest.getFirstName()) && customer.getLastName().equals(activationRequest.getLastName())) {
                 customer.setActive(true);
-                restTemplate.postForEntity("http://localhost:8081/customers", customer, ResponseEntity.class);
+                restTemplate.postForEntity("http://Customers/customers", customer, ResponseEntity.class);
             }
         }
         return new ResponseEntity(HttpStatus.OK);
@@ -60,8 +70,8 @@ public class RegistrationResource {
     public ResponseEntity close(@RequestBody ClosingRequest closingRequest) {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://localhost:8081/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
-            if (customer.getFirstName().equals(closingRequest.getFirstName()) && customer.getLastName().equals(closingRequest.getLastName())) {
-                restTemplate.postForEntity("http://localhost:8081/deleteCustomers", customer, ResponseEntity.class);
+            if(customer.getFirstName().equals(closingRequest.getFirstName()) && customer.getLastName().equals(closingRequest.getLastName())){
+                restTemplate.delete("http://Customers/customers" + customer.getId());
                 return new ResponseEntity(HttpStatus.OK);
             }
         }
@@ -93,4 +103,8 @@ public class RegistrationResource {
         }
     }
 
+    @GetMapping("/version")
+    public String version(){
+        return env.getProperty("custom.api.version");
+    }
 }
