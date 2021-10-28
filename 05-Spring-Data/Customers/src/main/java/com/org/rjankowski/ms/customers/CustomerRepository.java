@@ -9,10 +9,6 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    @Override
-    @Query("SELECT distinct c FROM Customer c join fetch c.addresses")
-    List<Customer> findAll();
-
     @Query("SELECT distinct c FROM Customer c join fetch c.addresses where c.firstName = ?1 and c.lastName = ?2")
     List<Customer> findAllByFirstNameAndLastName(String firstName, String lastName);
 
