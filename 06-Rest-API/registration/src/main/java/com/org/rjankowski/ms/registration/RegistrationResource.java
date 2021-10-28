@@ -24,7 +24,7 @@ public class RegistrationResource {
     public ResponseEntity registration(@RequestBody RegistrationRequest registrationRequest){
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
-            if(customer.getFirstName().equals(registrationRequest.getFirstName()) && customer.getLastName().equals(registrationRequest.getLastName())){
+            if (customer.getFirstName().equals(registrationRequest.getFirstName()) && customer.getLastName().equals(registrationRequest.getLastName())) {
                 throw new RuntimeException();
             }
         }
@@ -50,7 +50,7 @@ public class RegistrationResource {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
             if(customer.getFirstName().equals(closingRequest.getFirstName()) && customer.getLastName().equals(closingRequest.getLastName())){
-                restTemplate.delete("http://Customers/customers", customer);
+                restTemplate.delete("http://Customers/customers" + customer.getId());
                 return new ResponseEntity(HttpStatus.OK);
             }
         }

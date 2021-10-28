@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     Long customerId;
     String city;
