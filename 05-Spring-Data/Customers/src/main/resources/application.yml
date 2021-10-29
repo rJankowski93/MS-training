@@ -1,0 +1,15 @@
+spring.datasource.url: jdbc:h2:mem:customers
+spring:
+  application:
+    name: Customers
+  datasource:
+    password: pass
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+eureka:
+  instance:
+    prefer-ip-address: true
