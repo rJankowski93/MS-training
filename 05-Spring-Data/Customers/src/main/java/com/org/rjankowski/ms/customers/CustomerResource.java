@@ -45,9 +45,9 @@ public class CustomerResource {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/customers")
-    public ResponseEntity deleteCustomer(Customer customer) {
-        customerRepository.delete(customer);
+    @DeleteMapping("customers/{id}")
+    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+        customerRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

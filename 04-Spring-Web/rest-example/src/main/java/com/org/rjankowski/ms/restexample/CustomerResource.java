@@ -50,10 +50,11 @@ public class CustomerResource {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/customers")
+    @DeleteMapping("customers/{id}")
     @ApiOperation(value = "Delete customer")
-    public ResponseEntity deleteCustomer(Customer customer){
-        customerRepository.removeCustomer(customer);
+    public ResponseEntity deleteCustomer(@PathVariable Long id){
+        Customer itemById = customerRepository.getItemById(id);
+        customerRepository.removeCustomer(itemById);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

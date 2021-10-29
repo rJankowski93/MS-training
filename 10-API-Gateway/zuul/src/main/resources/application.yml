@@ -3,6 +3,7 @@ spring:
     name: zuul
 zuul:
   routes:
+    ignoredServices: '*'
     registration:
       path: /v1/registration/**
       serviceId: Registration
