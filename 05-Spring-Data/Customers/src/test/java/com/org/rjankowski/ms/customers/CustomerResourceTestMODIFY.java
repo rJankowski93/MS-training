@@ -37,15 +37,6 @@ public class CustomerResourceTestMODIFY {
 
     }
 
-    @Test
-    public void removeCustomer() throws Exception {
-        Customer customer = new Customer(11L, "Sebastian", "Zielony",Collections.emptyList());
-        mockMvc
-                .perform(MockMvcRequestBuilders.delete("/customers").content(asJsonString(customer)))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
