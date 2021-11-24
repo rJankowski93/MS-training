@@ -2,12 +2,12 @@ spring:
   application:
     name: zuul
 zuul:
+  ignoredServices: "*"
   routes:
-    ignoredServices: '*'
     registration:
       path: /v1/registration/**
       serviceId: Registration
-    customers:
+    coupons:
       path: /v1/coupons/**
       serviceId: Coupons
   prefix: /api
