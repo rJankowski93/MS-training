@@ -2,6 +2,7 @@ package com.org.rjankowski.ms.payment.resource;
 
 import com.org.rjankowski.ms.payment.data.Cart;
 import com.org.rjankowski.ms.payment.repository.CartRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/cart")
+@RequiredArgsConstructor
 public class CartResource {
 
-    @Autowired
-    CartRepository cartRepository;
+    private final CartRepository cartRepository;
 
     @RequestMapping(value = "/{cartId}", method = RequestMethod.GET)
     public ResponseEntity<Optional<Cart>> getCart(@PathVariable(value = "cartId") Long cartId) {
