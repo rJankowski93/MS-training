@@ -44,7 +44,7 @@ public class RegistrationResource {
         ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
             if(customer.getFirstName().equals(closingRequest.getFirstName()) && customer.getLastName().equals(closingRequest.getLastName())){
-                restTemplate.delete("http://Customers/customers" + customer.getId());
+                restTemplate.delete("http://Customers/customers/" + customer.getId());
                 return new ResponseEntity(HttpStatus.OK);
             }
         }
