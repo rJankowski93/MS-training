@@ -33,7 +33,7 @@ public class RegistrationResource {
     @PostMapping("/register")
     @HystrixCommand(fallbackMethod = "fallbackRegistration")
     public ResponseEntity registration(@RequestBody RegistrationRequest registrationRequest) {
-        ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://localhost:8081/customers", Customer[].class);
+        ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
             if (customer.getFirstName().equals(registrationRequest.getFirstName()) && customer.getLastName().equals(registrationRequest.getLastName())) {
                 throw new RuntimeException();
@@ -52,7 +52,7 @@ public class RegistrationResource {
             @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "20000")
     })
     public ResponseEntity active(@RequestBody ActivationRequest activationRequest) {
-        ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://localhost:8081/customers", Customer[].class);
+        ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
             if (customer.getFirstName().equals(activationRequest.getFirstName()) && customer.getLastName().equals(activationRequest.getLastName())) {
                 customer.setActive(true);
@@ -65,7 +65,7 @@ public class RegistrationResource {
     @PostMapping("/close")
     @HystrixCommand(fallbackMethod = "fallbackClose")
     public ResponseEntity close(@RequestBody ClosingRequest closingRequest) {
-        ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://localhost:8081/customers", Customer[].class);
+        ResponseEntity<Customer[]> forEntity = restTemplate.getForEntity("http://Customers/customers", Customer[].class);
         for (Customer customer : forEntity.getBody()) {
             if(customer.getFirstName().equals(closingRequest.getFirstName()) && customer.getLastName().equals(closingRequest.getLastName())){
                 restTemplate.delete("http://Customers/customers" + customer.getId());
