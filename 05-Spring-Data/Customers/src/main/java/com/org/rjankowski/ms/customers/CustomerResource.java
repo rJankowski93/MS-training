@@ -1,6 +1,8 @@
 package com.org.rjankowski.ms.customers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,18 +16,23 @@ import java.util.stream.Collectors;
 public class CustomerResource {
     private final CustomerRepository customerRepository;
 
+    private final Environment environment;
+
     @GetMapping("/customers")
     public ResponseEntity<List> getCustomers(@RequestParam(value = "firstName", required = false) String firstName, @RequestParam(value = "lastName", required = false) String lastName) {
+        String property = environment.getProperty("server.port");
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("x-port", property);
         if (firstName != null && lastName != null) {
-            return new ResponseEntity(customerRepository.findAllByFirstNameAndLastName(firstName, lastName), HttpStatus.OK);
+            return new ResponseEntity(customerRepository.findAllByFirstNameAndLastName(firstName, lastName), httpHeaders, HttpStatus.OK);
         }
         if (firstName != null) {
-            return new ResponseEntity(customerRepository.findAllByFirstName(firstName), HttpStatus.OK);
+            return new ResponseEntity(customerRepository.findAllByFirstName(firstName), httpHeaders, HttpStatus.OK);
         }
         if (lastName != null) {
-            return new ResponseEntity(customerRepository.findAllByLastName(lastName), HttpStatus.OK);
+            return new ResponseEntity(customerRepository.findAllByLastName(lastName), httpHeaders, HttpStatus.OK);
         }
-        return new ResponseEntity(customerRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity(customerRepository.findAll(), httpHeaders, HttpStatus.OK);
     }
 
     @GetMapping("customers/{id}")

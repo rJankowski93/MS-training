@@ -1,16 +1,12 @@
+server:
+  port: 8080
 spring:
   application:
     name: zuul
 zuul:
-  ignoredServices: "*"
   routes:
-    registration:
-      path: /v1/registration/**
-      serviceId: Registration
-    coupons:
-      path: /v1/coupons/**
-      serviceId: Coupons
+    customers:
+      path: /v1/customers/**
+      serviceId: Customers
+  ignored-services: "*"
   prefix: /api
-
-server:
-  port: 8080
